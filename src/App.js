@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import InputField from './InputField';
+import Header from './Components/Header/Header';
+import Base from './Components/Base/Base';
 import './App.css';
 
 const hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
@@ -10,10 +11,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      decimal: '',
-      hexadecimal: '',
-      binary: '',
-      base64: ''
+      route: 'base'
     }
   }
   convertToBase = (value, result, base, baseName) => {
@@ -82,29 +80,26 @@ class App extends Component {
       base64: value
     });
   }
+  onRouteChange = route => {
+    this.setState({ route });
+  }
   render() {
     return (
-      <div className="App">
-        <InputField
-          input={this.state.decimal}
-          calculate={this.handleDecimal}
-          inputName='Decimal'
+      <div>
+        <Header
+          from={this.state.route}
+          onRouteChange={this.onRouteChange}
         />
-        <InputField
-          input={this.state.hexadecimal}
-          calculate={this.handleHexadecimal}
-          inputName='Hexadecimal'
-        />
-        <InputField
-          input={this.state.binary}
-          calculate={this.handleBinary}
-          inputName='Binary'
-        />
-        <InputField
-          input={this.state.base64}
-          calculate={this.handleBase64}
-          inputName='Base64'
-        />
+        <div className="App">
+          {
+            this.state.route === 'base'
+            &&
+            <Base
+              convertToBase={this.convertToBase}
+              convertToDecimal={this.convertToDecimal}
+            />
+          }
+        </div>
       </div>
     );
   }

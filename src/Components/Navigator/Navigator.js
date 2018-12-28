@@ -1,0 +1,19 @@
+import React, { Component } from 'react';
+import './Navigator.css';
+
+class Navigator extends Component {
+  render() {
+    return (
+      <nav>
+        <div className='one'>
+          <div className='navLinks' onClick={() => this.props.onRouteChange('base')}>Base</div>
+        </div>
+        <div className='two'>
+          <div className='navLinks' onClick={() => this.props.onRouteChange('colors')}>Colors</div>
+        </div>
+      </nav>
+    );
+  }
+}
+
+export default Navigator;
