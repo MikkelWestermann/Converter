@@ -4,7 +4,7 @@
   align-items: center;
   text-align: center;
   width: 75vw;
-  margin: 40px;
+  margin: 25px;
 }
 
 input {
@@ -12,12 +12,12 @@ input {
   border: none;
   width: 75%;
   height: 50px;
-  margin: 25px;
+  margin: 20px;
   padding: 10px;
   font-size: 2.25em;
   text-align: center;
-  color: #185598;
-  background-color: #ddd;
+  color: #2B2C28;
+  background-color: #7DE2D1;
 }
 
 input:focus {
@@ -30,6 +30,6 @@ input:hover {
 }
 
 .inputFieldLabel {
-  color: #185598;
+  color: #2B2C28;
   font-size: 3em;
 }

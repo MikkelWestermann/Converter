@@ -16,41 +16,33 @@ const hexSet = makeSet(hex);
 const base64Set = makeSet(base64);
 
 class InputField extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      input: this.props.input
-    }
-  }
   onInputChange = (e) => {
     if (e.target.value.length > 0) {
-      if (this.props.inputName === 'decimal') {
+      if (this.props.inputName === 'Decimal') {
         if (!parseInt(e.target.value[e.target.value.length - 1])) {
           return;
         }
-      } else if (this.props.inputName === 'binary') {
+      } else if (this.props.inputName === 'Binary') {
         if (e.target.value[e.target.value.length - 1] !== '0' && e.target.value[e.target.value.length - 1] !== '1') {
           return;
         }
-      } else if (this.props.inputName === 'hexadecimal') {
+      } else if (this.props.inputName === 'Hexadecimal') {
         if (!hexSet.has(e.target.value[e.target.value.length - 1])) {
           return;
         }
-      } else if (this.props.inputName === 'base64') {
+      } else if (this.props.inputName === 'Base64') {
         if (!base64Set.has(e.target.value[e.target.value.length - 1])) {
           return;
         }
       }
     }
-    this.setState({ input: e.target.value }, () => {
-      this.props.calculate(this.state.input);
-    })
+    this.props.calculate(e.target.value);
   }
   render() {
     return (
       <div className='inputField'>
         <label htmlFor={this.props.inputName} className='inputFieldLabel'> {this.props.inputName} </label>
-        <input value={this.props.input || this.state.input} onChange={this.onInputChange} id={this.props.inputName} />
+        <input value={this.props.input} onChange={this.onInputChange} id={this.props.inputName} />
       </div>
     );
   }

@@ -1,55 +1,113 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import InputField from './InputField';
 import './App.css';
 
-import { decimal, hexadecimal, binary, base64 } from './actions';
-
-const mapStateToProps = state => {
-  return {
-    decimal: state.decimal,
-    hexadecimal: state.hexadecimal,
-    binary: state.binary,
-    base64: state.base64
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    handleDecimal: (value) => dispatch(decimal(value)),
-    handleHexadecimal: (value) => dispatch(hexadecimal(value)),
-    handleBinary: (value) => dispatch(binary(value)),
-    handleBase64: (value) => dispatch(base64(value))
-  }
-}
+const hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+const base64 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'];
+const binary = ['0', '1'];
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      decimal: '',
+      hexadecimal: '',
+      binary: '',
+      base64: ''
+    }
+  }
+  convertToBase = (value, result, base, baseName) => {
+    if (value === '') {
+      return '';
+    }
+    value = parseInt(value);
+    const newValue = Math.floor(value / base);
+    const remainder = value % base;
+    const curResult = baseName[remainder] + result;
+    if (newValue >= 1) {
+      return this.convertToBase(newValue, curResult, base, baseName);
+    } else {
+      return curResult;
+    }
+  }
+  convertToDecimal = (value, base, baseName) => {
+    if (value === '') {
+      return '';
+    }
+    let newValue = value.toString().split('');
+    newValue = newValue.reverse();
+    let result = 0;
+    newValue.forEach((item, i) => {
+      baseName.forEach((char, index) => {
+        if (char === item) {
+          result += (index * base**i);
+        }
+      })
+    })
+    return result;
+  }
+
+  handleDecimal = value => {
+    this.setState({
+      decimal: value,
+      hexadecimal: this.convertToBase(value, '', 16, hex),
+      binary: this.convertToBase(value, '', 2, binary),
+      base64: this.convertToBase(value, '', 64, base64)
+    });
+  }
+  handleHexadecimal = value => {
+    const decimalVal = this.convertToDecimal(value, 16, hex);
+    this.setState({
+      decimal: decimalVal,
+      hexadecimal: value,
+      binary: this.convertToBase(decimalVal, '', 2, binary),
+      base64: this.convertToBase(decimalVal, '', 64, base64)
+    });
+  }
+  handleBinary = value => {
+    const decimalVal = this.convertToDecimal(value, 2, binary);
+    this.setState({
+      decimal: decimalVal,
+      hexadecimal: this.convertToBase(decimalVal, '', 16, hex),
+      binary: value,
+      base64: this.convertToBase(decimalVal, '', 64, base64)
+    });
+  }
+  handleBase64 = value => {
+    const decimalVal = this.convertToDecimal(value, 64, base64);
+    this.setState({
+      decimal: decimalVal,
+      hexadecimal: this.convertToBase(decimalVal, '', 16, hex),
+      binary: this.convertToBase(decimalVal, '', 2, binary),
+      base64: value
+    });
+  }
   render() {
     return (
       <div className="App">
         <InputField
-          input={this.props.decimal}
-          calculate={this.props.handleDecimal}
-          inputName='decimal'
+          input={this.state.decimal}
+          calculate={this.handleDecimal}
+          inputName='Decimal'
         />
         <InputField
-          input={this.props.hexadecimal}
-          calculate={this.props.handleHexadecimal}
-          inputName='hexadecimal'
+          input={this.state.hexadecimal}
+          calculate={this.handleHexadecimal}
+          inputName='Hexadecimal'
         />
         <InputField
-          input={this.props.binary}
-          calculate={this.props.handleBinary}
-          inputName='binary'
+          input={this.state.binary}
+          calculate={this.handleBinary}
+          inputName='Binary'
         />
         <InputField
-          input={this.props.base64}
-          calculate={this.props.handleBase64}
-          inputName='base64'
+          input={this.state.base64}
+          calculate={this.handleBase64}
+          inputName='Base64'
         />
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
