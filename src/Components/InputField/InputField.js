@@ -19,8 +19,10 @@ class InputField extends Component {
   onInputChange = (e) => {
     if (e.target.value.length > 0) {
       if (this.props.inputName === 'Decimal') {
-        if (!parseInt(e.target.value[e.target.value.length - 1])) {
-          return;
+        if (e.target.value[e.target.value.length - 1] !== '0') {
+          if (!parseInt(e.target.value[e.target.value.length - 1])) {
+            return;
+          }
         }
       } else if (this.props.inputName === 'Binary') {
         if (e.target.value[e.target.value.length - 1] !== '0' && e.target.value[e.target.value.length - 1] !== '1') {
