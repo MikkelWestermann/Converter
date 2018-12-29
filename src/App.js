@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import Header from './Components/Header/Header';
 import Base from './Components/Base/Base';
+import Colors from './Components/Colors/Colors';
 import './App.css';
-
-const hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
-const base64 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'];
-const binary = ['0', '1'];
 
 class App extends Component {
   constructor() {
@@ -44,42 +41,6 @@ class App extends Component {
     })
     return result;
   }
-
-  handleDecimal = value => {
-    this.setState({
-      decimal: value,
-      hexadecimal: this.convertToBase(value, '', 16, hex),
-      binary: this.convertToBase(value, '', 2, binary),
-      base64: this.convertToBase(value, '', 64, base64)
-    });
-  }
-  handleHexadecimal = value => {
-    const decimalVal = this.convertToDecimal(value, 16, hex);
-    this.setState({
-      decimal: decimalVal,
-      hexadecimal: value,
-      binary: this.convertToBase(decimalVal, '', 2, binary),
-      base64: this.convertToBase(decimalVal, '', 64, base64)
-    });
-  }
-  handleBinary = value => {
-    const decimalVal = this.convertToDecimal(value, 2, binary);
-    this.setState({
-      decimal: decimalVal,
-      hexadecimal: this.convertToBase(decimalVal, '', 16, hex),
-      binary: value,
-      base64: this.convertToBase(decimalVal, '', 64, base64)
-    });
-  }
-  handleBase64 = value => {
-    const decimalVal = this.convertToDecimal(value, 64, base64);
-    this.setState({
-      decimal: decimalVal,
-      hexadecimal: this.convertToBase(decimalVal, '', 16, hex),
-      binary: this.convertToBase(decimalVal, '', 2, binary),
-      base64: value
-    });
-  }
   onRouteChange = route => {
     this.setState({ route });
   }
@@ -90,11 +51,19 @@ class App extends Component {
           from={this.state.route}
           onRouteChange={this.onRouteChange}
         />
-        <div className="App">
+        <div>
           {
             this.state.route === 'base'
             &&
             <Base
+              convertToBase={this.convertToBase}
+              convertToDecimal={this.convertToDecimal}
+            />
+          }
+          {
+            this.state.route === 'colors'
+            &&
+            <Colors
               convertToBase={this.convertToBase}
               convertToDecimal={this.convertToDecimal}
             />

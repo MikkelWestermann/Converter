@@ -1,0 +1,20 @@
+.colorInput {
+  width: 350px;
+  font-size: 1em;
+  margin: 100px 20px;
+  background-color: rgba(50, 50, 50, 0.1);
+  border-bottom: 15px solid rgba(25,25,25,0.1);
+}
+
+.dark {
+  color: #2B2C28;
+}
+
+.light {
+  color: #FFFAFB;
+}
+
+::placeholder {
+  color: #FFFAFB;
+  opacity: 0.65; 
+}
