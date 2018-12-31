@@ -5,6 +5,17 @@ const hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd
 const base64 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'];
 const binary = ['0', '1'];
 
+const makeSet = name => {
+  const mySet = new Set();
+  for (let i = 0; i < name.length; i++) {
+    mySet.add(name[i]);
+  }
+  return mySet;
+}
+
+const hexSet = makeSet(hex);
+const base64Set = makeSet(base64);
+
 class Base extends Component {
   constructor() {
     super();
@@ -50,27 +61,62 @@ class Base extends Component {
       base64: value
     });
   }
+  handleInputChange = (e, name) => {
+
+    if (name === 'Decimal') {
+      if (e.target.value.length > 0) {
+        if (e.target.value[e.target.value.length - 1] !== '0') {
+          if (!parseInt(e.target.value[e.target.value.length - 1])) {
+            return;
+          }
+        }
+      }
+      this.handleDecimal(e.target.value);
+    } else if (name === 'Binary') {
+      if (e.target.value.length > 0) {
+        if (e.target.value[e.target.value.length - 1] !== '0' && e.target.value[e.target.value.length - 1] !== '1') {
+          return;
+        }
+      }
+      this.handleBinary(e.target.value);
+    } else if (name === 'Hexadecimal') {
+      if (e.target.value.length > 0) {
+        if (!hexSet.has(e.target.value[e.target.value.length - 1])) {
+          return;
+        }
+      }
+      this.handleHex(e.target.value);
+    } else if (name === 'Base64') {
+      if (e.target.value.length > 0) {
+        if (!base64Set.has(e.target.value[e.target.value.length - 1])) {
+          return;
+        }
+      }
+      this.handleBase64(e.target.value);
+    }
+  }
   render() {
     return (
       <div className="App">
+        <br />
         <InputField
           input={this.state.decimal}
-          calculate={this.handleDecimal}
+          handleInputChange={this.handleInputChange}
           inputName='Decimal'
         />
         <InputField
           input={this.state.hexadecimal}
-          calculate={this.handleHexadecimal}
+          handleInputChange={this.handleInputChange}
           inputName='Hexadecimal'
         />
         <InputField
           input={this.state.binary}
-          calculate={this.handleBinary}
+          handleInputChange={this.handleInputChange}
           inputName='Binary'
         />
         <InputField
           input={this.state.base64}
-          calculate={this.handleBase64}
+          handleInputChange={this.handleInputChange}
           inputName='Base64'
         />
       </div>

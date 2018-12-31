@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './Components/Header/Header';
 import Base from './Components/Base/Base';
 import Colors from './Components/Colors/Colors';
+import Distance from './Components/Distance/Distance';
 import './App.css';
 
 class App extends Component {
@@ -67,6 +68,11 @@ class App extends Component {
               convertToBase={this.convertToBase}
               convertToDecimal={this.convertToDecimal}
             />
+          }
+          {
+            this.state.route === 'distance'
+            &&
+            <Distance /> 
           }
         </div>
       </div>

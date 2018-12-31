@@ -11,6 +11,9 @@ class Navigator extends Component {
         <div className='two'>
           <div className='navLinks' onClick={() => this.props.onRouteChange('colors')}>Colors</div>
         </div>
+        <div className='three'>
+          <div className='navLinks' onClick={() => this.props.onRouteChange('distance')}>Distance</div>
+        </div>
       </nav>
     );
   }

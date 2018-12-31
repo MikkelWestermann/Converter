@@ -92,7 +92,7 @@ class Colors extends Component {
   }
   render() {
     return (
-      <div style={{backgroundColor: `#${this.getValidColor(this.state.hex) ? this.state.hex : '339989'}`}} className={`colors ${this.state.brightness}`}>
+      <div style={{backgroundColor: `#${this.getValidColor(this.state.hex) ? this.state.hex : '339989'}`}} className={`App colors ${this.state.brightness}`}>
         {!this.getValidColor(this.state.hex) ? <h3>Write a Valid Color</h3> : <h3>Color has been Converted</h3>}
         <ColorInput
           change={this.onColorChange}
