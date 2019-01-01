@@ -66,6 +66,7 @@ class Distance extends Component {
   render() {
     return (
       <div className='App'>
+        <br /> 
         {
           Object.entries(this.state).map(([key, value]) => {
             return (<InputField

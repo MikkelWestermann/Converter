@@ -3,6 +3,7 @@ import Header from './Components/Header/Header';
 import Base from './Components/Base/Base';
 import Colors from './Components/Colors/Colors';
 import Distance from './Components/Distance/Distance';
+import Unicode from './Components/Unicode/Unicode';
 import './App.css';
 
 class App extends Component {
@@ -51,6 +52,7 @@ class App extends Component {
         <Header
           from={this.state.route}
           onRouteChange={this.onRouteChange}
+          route={this.state.route}
         />
         <div>
           {
@@ -72,7 +74,12 @@ class App extends Component {
           {
             this.state.route === 'distance'
             &&
-            <Distance /> 
+            <Distance />
+          }
+          {
+            this.state.route === 'unicode'
+            &&
+            <Unicode />
           }
         </div>
       </div>

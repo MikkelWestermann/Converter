@@ -1,0 +1,16 @@
+.unicode {
+  font-size: 2em;
+  color: #2B2C28;
+  text-align: center;
+}
+
+.unicode h3 {
+  font-size: 1.5em;
+  margin-bottom: 0;
+}
+
+.unicode p:hover {
+  text-decoration: underline;
+  color: #FFFAFB;
+  cursor: pointer;
+}
