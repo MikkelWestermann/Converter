@@ -1,20 +1,6 @@
 import React, { Component } from 'react';
+import { hex, base64, binary, hexSet, base64Set } from '../../ConversionData';
 import InputField from '../InputField/InputField';
-
-const hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
-const base64 = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'];
-const binary = ['0', '1'];
-
-const makeSet = name => {
-  const mySet = new Set();
-  for (let i = 0; i < name.length; i++) {
-    mySet.add(name[i]);
-  }
-  return mySet;
-}
-
-const hexSet = makeSet(hex);
-const base64Set = makeSet(base64);
 
 class Base extends Component {
   constructor() {
@@ -62,7 +48,6 @@ class Base extends Component {
     });
   }
   handleInputChange = (e, name) => {
-
     if (name === 'Decimal') {
       if (e.target.value.length > 0) {
         if (e.target.value[e.target.value.length - 1] !== '0') {
@@ -85,7 +70,7 @@ class Base extends Component {
           return;
         }
       }
-      this.handleHex(e.target.value);
+      this.handleHexadecimal(e.target.value);
     } else if (name === 'Base64') {
       if (e.target.value.length > 0) {
         if (!base64Set.has(e.target.value[e.target.value.length - 1])) {

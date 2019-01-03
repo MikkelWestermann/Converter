@@ -13,9 +13,9 @@ class Unicode extends Component {
       showList: false
     }
   }
-  handleToBinary = (value) => {
+  handleToBinary = (e) => {
     let result = '';
-    const chars = value.target.value.split('');
+    const chars = e.target.value.split('');
     chars.forEach(char => {
       for (let i = 0; i < data[0].length; i++) {
         if (data[0][i].char === char) {
@@ -32,12 +32,12 @@ class Unicode extends Component {
     });
     this.setState({
       binary: result,
-      unicode: value.target.value
+      unicode: e.target.value
     })
   }
-  handleToUnicode = (value) => {
+  handleToUnicode = (e) => {
     let result = '';
-    let input = value.target.value.replace(/\s/g, "");
+    let input = e.target.value.replace(/\s/g, "");
     if (input.length % 8 === 0 && input.length !== 0) {
       const bytes = input.match(/.{1,8}/g);
       for (let i = 0; i < bytes.length; i++) {
@@ -58,25 +58,18 @@ class Unicode extends Component {
         }
       }
       this.setState({
-        binary: value.target.value,
+        binary: e.target.value,
         unicode: result
       })
     } else {
       this.setState({
-        binary: value.target.value,
+        binary: e.target.value,
         unicode: ''
       })
     }
   }
-  closeList = () => {
-    this.setState({
-      showList: false
-    })
-  }
-  openList = () => {
-    this.setState({
-      showList: true
-    })
+  toggleList = () => {
+    this.setState({ showList: !this.state.showList })
   }
   render() {
     return (
@@ -103,9 +96,9 @@ class Unicode extends Component {
           {
             this.state.showList
             ?
-            <p onClick={this.closeList}>Close List</p>
+            <p onClick={this.toggleList}>Close List</p>
             :
-            <p onClick={this.openList}>Want a list of characters?</p>
+            <p onClick={this.toggleList}>Want a list of characters?</p>
           }
           {
             this.state.showList

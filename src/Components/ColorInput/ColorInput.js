@@ -1,19 +1,6 @@
 import React, { Component } from 'react';
+import { hexSet, rgbSet } from '../../ConversionData';
 import './ColorInput.css';
-
-const hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
-const rgb = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', ' '];
-
-const makeSet = name => {
-  const mySet = new Set();
-  for (let i = 0; i < name.length; i++) {
-    mySet.add(name[i]);
-  }
-  return mySet;
-}
-
-const hexSet = makeSet(hex);
-const rgbSet = makeSet(rgb);
 
 class ColorInput extends Component {
   onInputChange = e => {
